@@ -1,10 +1,23 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { State } from "./_middleware.ts";
 
-export const handler: Handlers = {
-  POST(_req, ctx) {
+export const handler: Handlers<any, State> = {
+  async POST(req, ctx) {
+    const form = await req.formData();
+    const email = form.get("email") as string;
+    const password = form.get("password") as string;
+
+    const {error}= await ctx.state.supabaseClient.auth.signUp({email, password});
+
+    let redirect = "/";
+    if(error) {
+      redirect = `/signup?error=${error.message}`;
+    }
+
+
     const headers = new Headers();
 
-    headers.set("location", "/");
+    headers.set("location", redirect); 
     return new Response(null, {
       status: 303,
       headers,
@@ -54,7 +67,7 @@ export default function Signup(props: PageProps) {
                   class="border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
-              <div>
+             {/*  <div>
                 <label for="password2" class="block mb-2 text-sm font-medium">
                   Confirm Password
                 </label>
@@ -65,7 +78,7 @@ export default function Signup(props: PageProps) {
                   placeholder="••••••••"
                   class="border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
-              </div>
+              </div> */}
 
               <button
                 type="submit"

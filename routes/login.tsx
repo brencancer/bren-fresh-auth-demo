@@ -1,10 +1,33 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { setCookie } from "$std/http/cookie.ts";
+import {State} from "./_middleware.ts"
 
-export const handler: Handlers = {
-  POST(_req, ctx) {
+
+export const handler: Handlers<any , State> = {
+  async POST(req, ctx) {
+    const form =  await req.formData();
+    const email  =form.get("email") as string;
+    const password = form.get("password") as string;
+
+    const {data, error} = await ctx.state.supabaseClient.auth.signInWithPassword({email,password});
+    
     const headers = new Headers();
 
-    headers.set("location", "/");
+    if(data.session) {
+      setCookie(headers, {
+        name: 'supaLogin',
+        value: data.session?.access_token,
+        maxAge:data.session.expires_in
+      })
+    }
+
+    let redirect = "/";
+    if(error){
+redirect =`/login?error=${error.message}`;
+    }
+
+
+    headers.set("location", redirect);
     return new Response(null, {
       status: 303,
       headers,
