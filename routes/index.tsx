@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
-import Layout from "../components/Layout.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
+import Layout from "../components/Layout.tsx";
 import { State } from "./_middleware.ts";
 
 export const handler: Handlers<any , State> = {
