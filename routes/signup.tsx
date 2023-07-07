@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { State } from "./_middleware.ts";
 

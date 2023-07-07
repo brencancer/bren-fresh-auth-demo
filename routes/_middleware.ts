@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { getCookies } from "$std/http/cookie.ts";
