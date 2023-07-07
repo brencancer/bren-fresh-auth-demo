@@ -19,13 +19,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
-  },
-  "supabase": {
-    "client": {
-        "auth": {
-            "persistSession": false 
-        }
-    }
   }
+  
+  
   
 }
