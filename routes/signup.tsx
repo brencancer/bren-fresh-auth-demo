@@ -8,7 +8,13 @@ export const handler: Handlers<any, State> = {
     const email = form.get("email") as string;
     const password = form.get("password") as string;
 
-    const {error}= await ctx.state.supabaseClient.auth.signUp({email, password});
+    const {error}= await ctx.state.supabaseClient.auth.signUp({
+      email,
+      password,
+      persistSession:false
+    });
+     
+      
 
     let redirect = "/";
     if(error) {

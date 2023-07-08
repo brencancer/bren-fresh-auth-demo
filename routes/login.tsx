@@ -6,10 +6,10 @@ import {State} from "./_middleware.ts"
 
 export const handler: Handlers< any, State> = {async POST(req, ctx) {
     const form =  await req.formData();
-    const email  =form.get("email") as string;
+    const email  = form.get("email") as string;
     const password = form.get("password") as string;
 
-    const {data, error} = await ctx.state.supabaseClient.auth.signInWithPassword({email,password});
+    const {data, error} = await ctx.state.supabaseClient.auth.signInWithPassword({email,password,persistSession:false});
     
     const headers = new Headers();
 
