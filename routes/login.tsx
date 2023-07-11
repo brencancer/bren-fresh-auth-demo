@@ -9,7 +9,7 @@ export const handler: Handlers< any, State> = {async POST(req, ctx) {
     const email  = form.get("email") as string;
     const password = form.get("password") as string;
 
-    const {data, error} = await ctx.state.supabaseClient.auth.signInWithPassword({email,password,persistSession:false});
+    const {data, error} = await ctx.state.supabaseClient.auth.signInWithPassword({email,password});
     
     const headers = new Headers();
 

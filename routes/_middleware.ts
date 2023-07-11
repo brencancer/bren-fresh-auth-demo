@@ -22,7 +22,6 @@ export async function handler(
   if (!supaCreds) {
     return ctx.next();
   }
-  client.auth.persistSession(false);
   const { error } = await client.auth.getUser(supaCreds);
 
   if (error) {

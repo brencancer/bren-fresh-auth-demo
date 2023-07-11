@@ -10,8 +10,7 @@ export const handler: Handlers<any, State> = {
 
     const {error}= await ctx.state.supabaseClient.auth.signUp({
       email,
-      password,
-      persistSession:false
+      password
     });
      
       
